@@ -16,7 +16,7 @@ bot.message(content: 'turn music on') do |event|
   voice_bot.adjust_offset = 10
   time_until_end = 0
   
-  while played_songs.length < 43 do #ToDo: change counter to dynamic count of files at repository
+  while played_songs.length < file_counter do
     song_id = rand_song_id(played_songs)
     played_songs << song_id
     #time_until_end = get_song_time(song_id) #ToDo:add automatic counter to show how much time left before end track
@@ -39,9 +39,9 @@ bot.message(content: 'Come in') do |event|
   "Connected to voice channel: #{channel.name}"
 end
 
-def rand_song_id(played_songs)#ToDo: change counter to dynamic count of files at repository
+def rand_song_id(played_songs)
   begin
-    song_id = rand(1-43)
+    song_id = rand(1-file_counter)
   end until ! played_songs.include? song_id
   song_id
 end
@@ -52,6 +52,12 @@ def get_song_time(song_id) # method for calculating time for file work
     time_until_end = info.length 
   end
   time_until_end
+end
+
+def file_counter
+  dir = './music'
+
+  @file_counter ||= Dir[File.join(dir, '**', '*')].count { |file| File.file?(file) }
 end
 
 bot.run
