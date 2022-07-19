@@ -4,7 +4,7 @@ require 'audioinfo'
 require 'byebug'
 require 'redis'
 
-bot = Discordrb::Commands::CommandBot.new token: 'OTk3OTYwMzM1NTYwNTYwNjYw.GqtzGl.kTMO4HjL4lxP3cPHNZ63NpGvP51K0XZw38CrgY'
+bot = Discordrb::Commands::CommandBot.new token: ENV['BOT_TOKEN']
 redis = Redis.new
 
 bot.message(content: 'turn music on') do |event|
